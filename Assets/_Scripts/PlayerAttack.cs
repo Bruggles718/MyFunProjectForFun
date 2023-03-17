@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-
-    [SerializeField] private UIButtonPrompt prompt;
     [SerializeField] private Transform handTransform;
 
     private Animator animator;
@@ -88,7 +86,7 @@ public class PlayerAttack : MonoBehaviour
         if (this.currentWeapon != null)
         {
             this.currentWeapon.gameObject.SetActive(false);
-            weaponDrop.DropWeapon(this.currentWeapon.GetWeaponDrop(), this.currentWeapon, this, this.prompt);
+            weaponDrop.DropWeapon(this.currentWeapon.GetWeaponDrop(), this.currentWeapon, this);
         }
         this.currentWeapon = weaponDrop.GetWeapon();
         this.currentWeapon.gameObject.SetActive(true);

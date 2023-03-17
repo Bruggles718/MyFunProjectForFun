@@ -8,7 +8,6 @@ public class WeaponDrop : MonoBehaviour
     private bool playerInRange;
     private string tagToCompare;
     [SerializeField] private PlayerAttack player;
-    [SerializeField] private UIButtonPrompt prompt;
 
     private string buttonPromptText = "Pick up";
     [SerializeField] private string buttonText = "E";
@@ -32,7 +31,7 @@ public class WeaponDrop : MonoBehaviour
         if (other.CompareTag(this.tagToCompare))
         {
             this.playerInRange = true;
-            this.prompt.SetActive(true, this.buttonPromptText, this.buttonText);
+            GameManager.Instance.SetButtonPromptActive(true, this.buttonPromptText, this.buttonText);
         }
     }
 
@@ -41,7 +40,7 @@ public class WeaponDrop : MonoBehaviour
         if (other.CompareTag(this.tagToCompare))
         {
             this.playerInRange = true;
-            this.prompt.gameObject.SetActive(true);
+            GameManager.Instance.SetButtonPromptActive(true, this.buttonPromptText, this.buttonText);
         }
     }
 
@@ -51,7 +50,7 @@ public class WeaponDrop : MonoBehaviour
         {
             this.playerInRange = false;
 
-            this.prompt.SetActive(false, this.buttonPromptText, this.buttonText);
+            GameManager.Instance.SetButtonPromptActive(false, this.buttonPromptText, this.buttonText);
         }
     }
 
@@ -60,13 +59,11 @@ public class WeaponDrop : MonoBehaviour
         return this.weapon;
     }
 
-    public void DropWeapon(GameObject weaponDrop, Weapon weapon, PlayerAttack player, UIButtonPrompt prompt)
+    public void DropWeapon(GameObject weaponDrop, Weapon weapon, PlayerAttack player)
     {
         WeaponDrop drop = Instantiate(weaponDrop, this.transform.position, Quaternion.identity).GetComponent<WeaponDrop>();
         drop.SetWeapon(weapon);
         drop.SetPlayer(player);
-        drop.SetButtonPrompt(prompt);
-        
     }
 
     public void SetWeapon(Weapon weapon)
@@ -77,10 +74,5 @@ public class WeaponDrop : MonoBehaviour
     public void SetPlayer(PlayerAttack player)
     {
         this.player = player;
-    }
-
-    public void SetButtonPrompt(UIButtonPrompt prompt)
-    {
-        this.prompt = prompt;
     }
 }
