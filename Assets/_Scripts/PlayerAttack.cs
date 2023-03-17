@@ -5,14 +5,15 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
 
+    [SerializeField] private UIButtonPrompt prompt;
     [SerializeField] private Transform handTransform;
 
     private Animator animator;
 
     private static readonly int Idle = Animator.StringToHash("Weapons.Idle");
 
-    [SerializeField] private Weapon sword;
-    [SerializeField] private Weapon bow;
+    //[SerializeField] private Weapon sword;
+    //[SerializeField] private Weapon bow;
 
     [SerializeField] private Weapon currentWeapon;
 
@@ -27,14 +28,15 @@ public class PlayerAttack : MonoBehaviour
         this.animator = GetComponent<Animator>();
         this.attacking = false;
         this.lockedTill = 0f;
-        this.sword.SetAnimationHash(Animator.StringToHash(this.sword.AnimationName()));
-        this.bow.SetAnimationHash(Animator.StringToHash(this.bow.AnimationName()));
-        this.currentWeapon.gameObject.SetActive(true);
+        //this.sword.SetAnimationHash(Animator.StringToHash(this.sword.AnimationName()));
+        //this.bow.SetAnimationHash(Animator.StringToHash(this.bow.AnimationName()));
+        //this.currentWeapon.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (this.currentWeapon == null) return;
         if (Time.time > this.lockedTill)
         {
             this.handTransform.right = (Helpers.MousePos2D() - this.handTransform.position).normalized;
@@ -81,5 +83,17 @@ public class PlayerAttack : MonoBehaviour
         return state;
     }
 
-    
+    public void SetCurrentWeapon(WeaponDrop weaponDrop)
+    {
+        if (this.currentWeapon != null)
+        {
+            this.currentWeapon.gameObject.SetActive(false);
+            weaponDrop.DropWeapon(this.currentWeapon.GetWeaponDrop(), this.currentWeapon, this, this.prompt);
+        }
+        this.currentWeapon = weaponDrop.GetWeapon();
+        this.currentWeapon.gameObject.SetActive(true);
+        this.currentWeapon.SetAnimationHash(Animator.StringToHash(this.currentWeapon.AnimationName()));
+        Destroy(weaponDrop.gameObject);
+        
+    }
 }

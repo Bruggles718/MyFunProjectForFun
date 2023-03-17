@@ -4,15 +4,18 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+    [Header("Weapon Drop Prefab")]
+    [SerializeField] private GameObject weaponDropPrefab;
     [Header("Behavior Data")]
     [SerializeField] private string animationName;
     [SerializeField] private float attackTime;
     [SerializeField] private bool stopTurningHand;
     private int hashedAnimationName;
+    private bool hashedNameSet = false;
     // Start is called before the first frame update
     void Start()
     {
-        this.hashedAnimationName = Animator.StringToHash(this.animationName);
+
     }
 
     // Update is called once per frame
@@ -35,7 +38,11 @@ public abstract class Weapon : MonoBehaviour
 
     public void SetAnimationHash(int value)
     {
-        this.hashedAnimationName = value;
+        if (!this.hashedNameSet)
+        {
+            this.hashedAnimationName = value;
+            this.hashedNameSet = true;
+        }
     }
 
     public int GetHashedAnimation()
@@ -46,5 +53,10 @@ public abstract class Weapon : MonoBehaviour
     public bool StopTurningHand()
     {
         return this.stopTurningHand;
+    }
+
+    public GameObject GetWeaponDrop()
+    {
+        return this.weaponDropPrefab;
     }
 }
