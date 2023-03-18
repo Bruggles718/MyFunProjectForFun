@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour
     private AIData aiData;
 
     [SerializeField]
-    private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 1f;
+    private float detectionDelay = 0f, aiUpdateDelay = 0f, attackDelay = 1f;
 
     [SerializeField]
     private float attackDistance = 0.5f;
