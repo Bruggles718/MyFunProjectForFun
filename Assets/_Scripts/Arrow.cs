@@ -28,10 +28,7 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("Enemy") && !other.gameObject.CompareTag("Wallaaaaaaa")) return;
-        var prefab = Instantiate(arrowHitCollisionPrefab, this.transform.position + this.transform.up, this.transform.rotation);
-        prefab.transform.SetParent(other.transform);
-        Destroy(prefab, 3);
+        if (!other.CompareTag("Enemy")) return;
         Destroy(this.gameObject);
     }
 }

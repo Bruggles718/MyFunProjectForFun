@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SeekBehaviour : SteeringBehaviour
 {
+    [SerializeField] private float strafeDistance = 2f;
+
     [SerializeField]
     private float targetRechedThreshold = 0.5f;
 
@@ -54,6 +56,7 @@ public class SeekBehaviour : SteeringBehaviour
         for (int i = 0; i < interest.Length; i++)
         {
             float result = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]);
+            if (Vector3.Distance(this.transform.position, this.targetPositionCached) < strafeDistance) result = 0;
 
             //accept only directions at the less than 90 degrees to the target direction
             if (result > 0)

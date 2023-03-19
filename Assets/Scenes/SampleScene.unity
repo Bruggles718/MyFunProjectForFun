@@ -3976,7 +3976,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485674034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4931,7 +4931,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01683554, y: -0.112277746}
+  m_Offset: {x: -0.003820926, y: -0.12853956}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4942,7 +4942,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.96377057, y: 1.0091968}
+  m_Size: {x: 0.8759952, y: 1.0138426}
   m_EdgeRadius: 0
 --- !u!1 &1457815816
 GameObject:
@@ -5047,7 +5047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponDropPrefab: {fileID: 3171667773737822609, guid: f87d73940f87d9e43b9a108378505d8a, type: 3}
   animationName: Weapons.Bow
-  attackTime: 0.6
+  attackTime: 1
   stopTurningHand: 0
   arrowProjectilePrefab: {fileID: 5252380099044816426, guid: b66287914bb9bca4a9c62ce3bd6c8613, type: 3}
   arrowSpawnDelay: 0.16666667
@@ -5083,6 +5083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b73424a795bea4ebf373e234c415dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  strafeDistance: 2
   targetRechedThreshold: 0.5
   showGizmo: 1
 --- !u!4 &1626675152
@@ -5448,7 +5449,7 @@ SpriteRenderer:
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 3a817dc88795ad740940635a1dfce274, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1.25}
@@ -5465,7 +5466,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028676546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.075190544, y: -5.457366, z: 0}
+  m_LocalPosition: {x: -0.408, y: -5.174, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5533,8 +5534,8 @@ MonoBehaviour:
   aiData: {fileID: 2028676552}
   detectionDelay: 0.01
   aiUpdateDelay: 0.01
-  attackDelay: 1
-  attackDistance: 0.5
+  attackDelay: 0.01
+  attackDistance: 1
   OnAttackPressed:
     m_PersistentCalls:
       m_Calls:
@@ -5640,7 +5641,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.44894743}
+  m_Offset: {x: -0.0069693923, y: -0.44430113}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5651,7 +5652,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.37147427}
+  m_Size: {x: 0.77233434, y: 0.36218166}
   m_EdgeRadius: 0
 --- !u!1 &2142156896
 GameObject:
