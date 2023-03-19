@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SeekBehaviour : SteeringBehaviour
+public class StrafeBehaviour : SteeringBehaviour
 {
+    [SerializeField] private float strafeDirection = 1;
+
     [SerializeField]
     private float targetRechedThreshold = 0.5f;
 
@@ -50,14 +52,27 @@ public class SeekBehaviour : SteeringBehaviour
         }
 
         //If we havent yet reached the target do the main logic of finding the interest directions
-
         Vector2 directionToTarget = (targetPositionCached - (Vector2)transform.position);
-
-        //print(Vector3.Distance(targetPositionCached - (directionToTarget.normalized * aiData.strafeDistance), transform.position));
         for (int i = 0; i < interest.Length; i++)
         {
-            //float result = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]) * (Vector3.Distance(targetPositionCached - (directionToTarget.normalized * aiData.strafeDistance), transform.position));
-            float result = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]);
+
+            float result = 0;
+
+            if (aiData.currentTarget != null && aiData.targets != null && aiData.targets.Contains(aiData.currentTarget))
+            {
+                print("here");
+                result = Vector2.Dot(directionToTarget.normalized.Vec3().RotateAroundZ(this.strafeDirection * 90), Directions.eightDirections[i]) * (aiData.strafeDistance / Vector3.Distance(targetPositionCached, this.transform.position));
+
+                if (Vector3.Distance(targetPositionCached, this.transform.position) < aiData.strafeDistance)
+                {
+                    var dangerValue = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]) * (Vector3.Distance(targetPositionCached - (directionToTarget.normalized * aiData.strafeDistance), transform.position));
+                    if (dangerValue > danger[i])
+                    {
+                        danger[i] = dangerValue;
+                    }
+                    result -= (Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]));
+                }
+            }
 
             //accept only directions at the less than 90 degrees to the target direction
             if (result > 0)

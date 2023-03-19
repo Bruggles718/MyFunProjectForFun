@@ -3947,6 +3947,7 @@ Transform:
   m_Children:
   - {fileID: 588685855}
   - {fileID: 1626675152}
+  - {fileID: 676635864}
   - {fileID: 761507531}
   m_Father: {fileID: 2028676549}
   m_RootOrder: 3
@@ -4232,7 +4233,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 2
-  agentColliderSize: 1
+  agentColliderSize: 0.6
+  showGizmo: 1
+--- !u!1 &676635863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 676635864}
+  - component: {fileID: 676635865}
+  m_Layer: 0
+  m_Name: StrafeBehaviour
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &676635864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676635863}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.38, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 470665953}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &676635865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676635863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94aa8e11badabe24cb10abd1235b5589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strafeDirection: 1
+  targetRechedThreshold: 0.5
   showGizmo: 1
 --- !u!1 &761507530
 GameObject:
@@ -4264,7 +4312,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 470665953}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &761507532
 MonoBehaviour:
@@ -4838,7 +4886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1343736502}
   - component: {fileID: 1343736503}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TriggerCollider
   m_TagString: PlayerTrigger
   m_Icon: {fileID: 0}
@@ -5083,7 +5131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b73424a795bea4ebf373e234c415dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strafeDistance: 2
   targetRechedThreshold: 0.5
   showGizmo: 1
 --- !u!4 &1626675152
@@ -5094,7 +5141,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626675150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5240,13 +5287,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5837f35af8b19fd4289ea9d696b763ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDetectionRange: 7
+  targetDetectionRange: 10
   obstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 320
   playerLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   showGizmos: 1
 --- !u!1 &1845328665
 GameObject:
@@ -5378,7 +5425,6 @@ GameObject:
   - component: {fileID: 2028676551}
   - component: {fileID: 2028676552}
   - component: {fileID: 2028676553}
-  - component: {fileID: 2028676554}
   m_Layer: 0
   m_Name: OrcWarrior
   m_TagString: Enemy
@@ -5513,6 +5559,7 @@ MonoBehaviour:
   targets: []
   obstacles: []
   currentTarget: {fileID: 0}
+  strafeDistance: 4
 --- !u!114 &2028676553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5528,74 +5575,15 @@ MonoBehaviour:
   steeringBehaviours:
   - {fileID: 588685856}
   - {fileID: 1626675151}
+  - {fileID: 676635865}
   detectors:
   - {fileID: 1772858376}
   - {fileID: 485674036}
   aiData: {fileID: 2028676552}
-  detectionDelay: 0.01
-  aiUpdateDelay: 0.01
-  attackDelay: 0.01
-  attackDistance: 1
-  OnAttackPressed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2028676554}
-        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
-        m_MethodName: Attack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnMovementInput:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2028676554}
-        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
-        m_MethodName: MoveEnemy
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnPointerInput:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2028676554}
-        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
-        m_MethodName: OnPointerInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  movementInput: {x: 0, y: 0}
+  attackDistance: 0
   movementDirectionSolver: {fileID: 761507532}
---- !u!114 &2028676554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028676546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c423ecd6d99fd3d4dbb7c5199ad8deff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   speed: 2
+  currentEnemyState: 0
 --- !u!1 &2121158867
 GameObject:
   m_ObjectHideFlags: 0

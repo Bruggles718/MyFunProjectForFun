@@ -7,6 +7,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float speed;
     private Rigidbody2D rb;
 
+    private Vector3 moveVector;
+
     private void Awake()
     {
         this.rb = GetComponent<Rigidbody2D>();
@@ -24,9 +26,14 @@ public class EnemyMovement : MonoBehaviour
         
     }
 
+    private void FixedUpdate()
+    {
+        this.rb.velocity = this.moveVector;
+    }
+
     public void MoveEnemy(Vector2 moveVector)
     {
-        this.rb.velocity = moveVector * this.speed;
+        this.moveVector = moveVector * this.speed;
     }
 
     public void Attack()
