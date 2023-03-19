@@ -9,8 +9,6 @@ public class AIData : MonoBehaviour
 
     [SerializeField] public Transform currentTarget;
 
-    [SerializeField] public float strafeDistance = 3f;
-
     public int GetTargetsCount() => targets == null ? 0 : targets.Count;
 
     public void SetObstacles(Collider2D[] obstacles)

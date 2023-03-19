@@ -38,4 +38,10 @@ public static class Helpers
     {
         return new Vector3(vec2.x, vec2.y, 0f);
     }
+
+    public static T RandomChoice<T>(params T[] options)
+    {
+        var choice = Random.Range(0, options.Length);
+        return options[choice];
+    }
 }

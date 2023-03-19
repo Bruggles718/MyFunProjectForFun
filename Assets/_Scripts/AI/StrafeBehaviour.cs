@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class StrafeBehaviour : SteeringBehaviour
 {
+    private float timeToChangeDirection;
+
+    [SerializeField] private float strafeDistance = 4f;
+
     [SerializeField] private float strafeDirection = 1;
 
     [SerializeField]
@@ -18,6 +22,11 @@ public class StrafeBehaviour : SteeringBehaviour
     //gizmo parameters
     private Vector2 targetPositionCached;
     private float[] interestsTemp;
+
+    private void Start()
+    {
+        strafeDirection = Helpers.RandomChoice(1, -1);
+    }
 
     public override (float[] danger, float[] interest) GetSteering(float[] danger, float[] interest, AIData aiData)
     {
@@ -60,12 +69,11 @@ public class StrafeBehaviour : SteeringBehaviour
 
             if (aiData.currentTarget != null && aiData.targets != null && aiData.targets.Contains(aiData.currentTarget))
             {
-                print("here");
-                result = Vector2.Dot(directionToTarget.normalized.Vec3().RotateAroundZ(this.strafeDirection * 90), Directions.eightDirections[i]) * (aiData.strafeDistance / Vector3.Distance(targetPositionCached, this.transform.position));
+                result = Vector2.Dot(directionToTarget.normalized.Vec3().RotateAroundZ(this.strafeDirection * 90), Directions.eightDirections[i]) * (this.strafeDistance / Vector3.Distance(targetPositionCached, this.transform.position));
 
-                if (Vector3.Distance(targetPositionCached, this.transform.position) < aiData.strafeDistance)
+                if (Vector3.Distance(targetPositionCached, this.transform.position) < this.strafeDistance)
                 {
-                    var dangerValue = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]) * (Vector3.Distance(targetPositionCached - (directionToTarget.normalized * aiData.strafeDistance), transform.position));
+                    var dangerValue = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]) * (Vector3.Distance(targetPositionCached - (directionToTarget.normalized * this.strafeDistance), transform.position));
                     if (dangerValue > danger[i])
                     {
                         danger[i] = dangerValue;

@@ -19,9 +19,9 @@ TagManager:
   - Obstacle
   - Player
   - PlayerTrigger
-  - 
-  - 
-  - 
+  - Enemy
+  - EnemyTrigger
+  - EnemyCollider
   - 
   - 
   - 
