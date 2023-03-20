@@ -25,7 +25,7 @@ public class StrafeBehaviour : SteeringBehaviour
 
     private void Start()
     {
-        strafeDirection = Helpers.RandomChoice(1, -1);
+        //strafeDirection = Helpers.RandomChoice(1, -1);
     }
 
     public override (float[] danger, float[] interest) GetSteering(float[] danger, float[] interest, AIData aiData)

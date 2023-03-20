@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ObstacleAvoidanceBehaviour : SteeringBehaviour
 {
+    [SerializeField] private TargetDetector targetDetector;
+
     [SerializeField]
     private float radius = 2f, agentColliderSize = 0.6f;
 
@@ -29,10 +31,35 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
 
             Vector2 directionToObstacleNormalized = directionToObstacle.normalized;
 
+            float checkDistance = 1f;
+
+            bool visionCheck = false;
+
+            for (int i = 0; i < interest.Length; i += 1)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Directions.eightDirections[i], checkDistance, LayerMask.GetMask("Obstacles"));
+
+                var visionCheckList = this.targetDetector.DetectHelper(this.transform.position.Vec2() + Directions.eightDirections[i] * checkDistance);
+
+                if (hit)
+                {
+                    this.targetDetector.DetectHelper(hit.point);
+                }
+
+                if (visionCheckList == null || visionCheckList.Count <= 0)
+                {
+                    visionCheck = true;
+                }
+            }
+
             //Add obstacle parameters to the danger array
             for (int i = 0; i < Directions.eightDirections.Count; i++)
             {
                 float result = Vector2.Dot(directionToObstacleNormalized, Directions.eightDirections[i]);
+                if (!visionCheck && obstacleCollider.CompareTag("Enemy"))
+                {
+                    result = Vector2.Dot(directionToObstacleNormalized.Vec3().RotateAroundZ(45), Directions.eightDirections[i]);
+                }
 
                 float valueToPutIn = result * weight;
 

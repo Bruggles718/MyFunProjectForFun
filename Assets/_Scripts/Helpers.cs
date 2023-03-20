@@ -6,6 +6,7 @@ using UnityEngine;
 public static class Helpers
 {
     private static Dictionary<float, WaitForSeconds> waitForSecondsDict = new Dictionary<float, WaitForSeconds>();
+    private static Dictionary<float, WaitForSecondsRealtime> waitForSecondsRealtimeDict = new Dictionary<float, WaitForSecondsRealtime>();
 
     public static Vector3 MousePos2D()
     {
@@ -20,6 +21,17 @@ public static class Helpers
         {
             waitForSecondsDict[duration] = new WaitForSeconds(duration);
             result = waitForSecondsDict[duration];
+        }
+        return result;
+    }
+
+    public static WaitForSecondsRealtime WaitForSecondsRealtime(float duration)
+    {
+        waitForSecondsRealtimeDict.TryGetValue(duration, out var result);
+        if (result == null)
+        {
+            waitForSecondsRealtimeDict[duration] = new WaitForSecondsRealtime(duration);
+            result = waitForSecondsRealtimeDict[duration];
         }
         return result;
     }

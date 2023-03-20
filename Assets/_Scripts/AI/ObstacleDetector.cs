@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ObstacleDetector : Detector
 {
+    [SerializeField] private Collider2D colliderToIgnore;
+
     [SerializeField]
     private float detectionRadius = 2;
 
@@ -17,8 +19,10 @@ public class ObstacleDetector : Detector
 
     public override void Detect(AIData aiData)
     {
+        colliderToIgnore.enabled = false;
         colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, layerMask);
         aiData.SetObstacles(colliders);
+        colliderToIgnore.enabled = true;
     }
 
     private void OnDrawGizmos()

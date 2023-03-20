@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93d624325c05e6428ce9c38594b7fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderToAvoid: {fileID: 3152751008172146605}
+  colliderToIgnore: {fileID: 3152751008881754513}
   detectionRadius: 2
   layerMask:
     serializedVersion: 2
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 2
-  agentColliderSize: 0.8
+  agentColliderSize: 1
   showGizmo: 1
 --- !u!1 &3152751010189686163
 GameObject:
