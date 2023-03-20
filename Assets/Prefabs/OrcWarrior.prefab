@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93d624325c05e6428ce9c38594b7fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colliderToAvoid: {fileID: 3152751008172146605}
   detectionRadius: 2
   layerMask:
     serializedVersion: 2
@@ -594,6 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94aa8e11badabe24cb10abd1235b5589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetDetector: {fileID: 0}
   strafeDistance: 4
   strafeDirection: 1
   targetRechedThreshold: 0.5
