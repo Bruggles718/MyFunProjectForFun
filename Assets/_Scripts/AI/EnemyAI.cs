@@ -6,8 +6,9 @@ using UnityEngine.Events;
 public class EnemyAI : MonoBehaviour
 {
 
-    private static readonly int Idle = Animator.StringToHash("Movement.Idle");
-    private static readonly int Run = Animator.StringToHash("Movement.Run");
+    private static readonly int Idle = Animator.StringToHash("Idle");
+    private static readonly int Run = Animator.StringToHash("Run");
+    private static readonly int Attack = Animator.StringToHash("Attack");
 
     public enum EnemyState
     {
@@ -42,6 +43,8 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] private float speed = 2;
 
+    [SerializeField] private Transform handTransform;
+
     private Vector2 moveVector;
 
     private float lockedTill;
@@ -56,6 +59,14 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] private EnemyState currentEnemyState;
 
+    [SerializeField] private EnemyAttack attack;
+
+    private float startAttackIn;
+
+    private float lockedInAttackTill;
+
+    private bool readying = false;
+
     private void Start()
     {
         //Detecting Player and Obstacles around
@@ -67,6 +78,8 @@ public class EnemyAI : MonoBehaviour
 
         this.currentEnemyState = EnemyState.Idle;
         this.currentBaseState = Idle;
+
+        this.startAttackIn = this.startAttackIn = Random.Range(3f, 6f);
     }
 
     private void PerformDetection()
@@ -82,7 +95,7 @@ public class EnemyAI : MonoBehaviour
         PerformDetection();
 
         //Enemy AI movement based on Target availability
-        
+
         //Moving the Agent
         //OnMovementInput?.Invoke(movementInput);
 
@@ -93,6 +106,9 @@ public class EnemyAI : MonoBehaviour
                 break;
             case EnemyState.Chase:
                 UpdateChase();
+                break;
+            case EnemyState.Attack:
+                UpdateAttack();
                 break;
         }
 
@@ -120,6 +136,13 @@ public class EnemyAI : MonoBehaviour
         this.rb.velocity = this.moveVector;
     }
 
+    private void UpdateAttack()
+    {
+        if (Time.time < lockedInAttackTill) return;
+        this.currentEnemyState = EnemyState.Idle;
+        this.readying = false;
+    }
+
     private void UpdateChase()
     {
         if (aiData.currentTarget == null)
@@ -134,8 +157,9 @@ public class EnemyAI : MonoBehaviour
         else
         {
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-
-            if (distance < attackDistance)
+            this.handTransform.right = -(aiData.currentTarget.position - transform.position).normalized;
+            moveVector = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData) * speed;
+            if (Mathf.Abs(aiData.strafeDistance - distance) < 1)
             {
                 //Attack logic
                 //movementInput = Vector2.zero;
@@ -143,17 +167,27 @@ public class EnemyAI : MonoBehaviour
                 //yield return new WaitForSeconds(attackDelay);
                 //StartCoroutine(ChaseAndAttack());
 
-                this.currentEnemyState = EnemyState.Attack;
+                if (this.startAttackIn > 0)
+                {
+                    startAttackIn -= Time.deltaTime;
+                }
+
             }
-            else
+
+            if (startAttackIn <= 0)
             {
-                //Chase logic
-                moveVector = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData) * speed;
-                //yield return new WaitForSeconds(aiUpdateDelay);
-                //StartCoroutine(ChaseAndAttack());
+                this.startAttackIn = Random.Range(3f, 6f);
+                this.StartCoroutine(this.AttackCo());
             }
 
         }
+    }
+
+    private IEnumerator AttackCo()
+    {
+        this.currentEnemyState = EnemyState.Attack;
+        this.lockedInAttackTill = Time.time + this.attack.AttackTime();
+        yield return this.attack.AttackCo(this);
     }
 
     private void UpdateIdle()
@@ -180,6 +214,12 @@ public class EnemyAI : MonoBehaviour
         {
             return this.currentBaseState;
         }
+
+        if (this.currentEnemyState == EnemyState.Attack)
+        {
+            return LockState(Attack, this.attack.AttackTime());
+        }
+
         if (this.moveVector.x == 0 && this.moveVector.y == 0)
         {
             return Idle;
@@ -194,5 +234,15 @@ public class EnemyAI : MonoBehaviour
     {
         this.lockedTill = Time.time + duration;
         return state;
+    }
+
+    public void SetMoveVector(Vector3 vec3)
+    {
+        this.moveVector = vec3;
+    }
+
+    public AIData GetAIData()
+    {
+        return this.aiData;
     }
 }

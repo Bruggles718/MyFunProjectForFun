@@ -7,7 +7,7 @@ public class StrafeBehaviour : SteeringBehaviour
 {
     [SerializeField] private TargetDetector targetDetector;
 
-    [SerializeField] private float strafeDistance = 4f;
+    private float strafeDistance = 4f;
 
     [SerializeField] private float strafeDirection = 1;
 
@@ -30,6 +30,8 @@ public class StrafeBehaviour : SteeringBehaviour
 
     public override (float[] danger, float[] interest) GetSteering(float[] danger, float[] interest, AIData aiData)
     {
+        this.strafeDistance = aiData.strafeDistance;
+
         //if we don't have a target stop seeking
         //else set a new target
         if (reachedLastTarget)
