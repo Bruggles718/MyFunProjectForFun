@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StrafeBehaviour : SteeringBehaviour
 {
-    private float timeToChangeDirection;
+    [SerializeField] private TargetDetector targetDetector;
 
     [SerializeField] private float strafeDistance = 4f;
 
@@ -49,7 +49,9 @@ public class StrafeBehaviour : SteeringBehaviour
         }
 
         //cache the last position only if we still see the target (if the targets collection is not empty)
-        if (aiData.currentTarget != null && aiData.targets != null && aiData.targets.Contains(aiData.currentTarget))
+        if (!(aiData.currentTarget != null && aiData.targets != null && aiData.targets.Contains(aiData.currentTarget)))
+            return (danger, interest);
+        else
             targetPositionCached = aiData.currentTarget.position;
 
         //First check if we have reached the target
@@ -62,24 +64,43 @@ public class StrafeBehaviour : SteeringBehaviour
 
         //If we havent yet reached the target do the main logic of finding the interest directions
         Vector2 directionToTarget = (targetPositionCached - (Vector2)transform.position);
+
+        float checkDistance = 1f;
+
+        for (int i = 0; i < interest.Length; i += 1)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Directions.eightDirections[i], checkDistance, LayerMask.GetMask("Obstacles"));
+
+            var visionCheckList = this.targetDetector.DetectHelper(this.transform.position.Vec2() + Directions.eightDirections[i] * checkDistance);
+
+            if (hit)
+            {
+                this.targetDetector.DetectHelper(hit.point);
+            }
+
+            if (visionCheckList == null || visionCheckList.Count <= 0)
+            {
+                return (danger, interest);
+            }
+        }
+
+        
         for (int i = 0; i < interest.Length; i++)
         {
 
             float result = 0;
 
-            if (aiData.currentTarget != null && aiData.targets != null && aiData.targets.Contains(aiData.currentTarget))
-            {
-                result = Vector2.Dot(directionToTarget.normalized.Vec3().RotateAroundZ(this.strafeDirection * 90), Directions.eightDirections[i]) * (this.strafeDistance / Vector3.Distance(targetPositionCached, this.transform.position));
+            result = Vector2.Dot(directionToTarget.normalized.Vec3().RotateAroundZ(this.strafeDirection * 90), Directions.eightDirections[i]) * (this.strafeDistance / Vector3.Distance(targetPositionCached, this.transform.position));
 
-                if (Vector3.Distance(targetPositionCached, this.transform.position) < this.strafeDistance)
+            if (Vector3.Distance(targetPositionCached, this.transform.position) < this.strafeDistance)
+            {
+                var dangerValue = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]) * (Vector3.Distance(targetPositionCached - (directionToTarget.normalized * this.strafeDistance), transform.position));
+                if (dangerValue > danger[i])
                 {
-                    var dangerValue = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]) * (Vector3.Distance(targetPositionCached - (directionToTarget.normalized * this.strafeDistance), transform.position));
-                    if (dangerValue > danger[i])
-                    {
-                        danger[i] = dangerValue;
-                    }
-                    result -= (Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]));
+                    danger[i] = dangerValue;
                 }
+                //result -= (Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]));
+                result -= dangerValue;
             }
 
             //accept only directions at the less than 90 degrees to the target direction

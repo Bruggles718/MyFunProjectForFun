@@ -8,7 +8,7 @@ public class ObstacleDetector : Detector
     private float detectionRadius = 2;
 
     [SerializeField]
-    private LayerMask layerMask;
+    public LayerMask layerMask;
 
     [SerializeField]
     private bool showGizmos = true;
