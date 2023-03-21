@@ -528,9 +528,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e700c3f29afdd54f89a503739d3d467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHitboxTag: PlayerHitbox
+  hitboxTag: PlayerHitbox
   hitMaterial: {fileID: 2100000, guid: b0af7862c332167489eb855a3573289d, type: 2}
   invincibilityTimeSeconds: 0.1
+  intensity: 4
 --- !u!114 &942076822
 MonoBehaviour:
   m_ObjectHideFlags: 0

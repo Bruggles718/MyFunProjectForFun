@@ -4648,9 +4648,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e700c3f29afdd54f89a503739d3d467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHitboxTag: Enemy
+  hitboxTag: Enemy
   hitMaterial: {fileID: 2100000, guid: b0af7862c332167489eb855a3573289d, type: 2}
   invincibilityTimeSeconds: 0.25
+  intensity: 4
 --- !u!1 &1343736501
 GameObject:
   m_ObjectHideFlags: 0
@@ -4716,6 +4717,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 942076821, guid: ebcdf8033f410f34fb37e6b2a4989be4, type: 3}
+      propertyPath: intensity
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3152751008839611521, guid: ebcdf8033f410f34fb37e6b2a4989be4, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -4777,6 +4782,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 942076821, guid: ebcdf8033f410f34fb37e6b2a4989be4, type: 3}
+      propertyPath: intensity
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3152751008839611521, guid: ebcdf8033f410f34fb37e6b2a4989be4, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -5446,6 +5455,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 942076821, guid: ebcdf8033f410f34fb37e6b2a4989be4, type: 3}
+      propertyPath: intensity
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3152751008839611521, guid: ebcdf8033f410f34fb37e6b2a4989be4, type: 3}
       propertyPath: m_RootOrder
       value: 8
