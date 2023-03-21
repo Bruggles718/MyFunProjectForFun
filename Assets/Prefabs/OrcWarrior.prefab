@@ -548,7 +548,7 @@ MonoBehaviour:
   swordSwipePrefab: {fileID: 2776848348362735944, guid: b1494ba54829a5d479cb48c44d9b7463, type: 3}
   handTransform: {fileID: 142618929}
   distanceInFrontToSpawnSwipe: 1.543884
-  distanceForward: 4
+  distanceForward: 4.5
 --- !u!1 &3152751008881754519
 GameObject:
   m_ObjectHideFlags: 0
