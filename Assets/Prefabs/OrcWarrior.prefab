@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 443229096}
   m_Layer: 7
   m_Name: Sword
-  m_TagString: PlayerWeapon
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 1815830742}
   m_Layer: 7
   m_Name: HitBox
-  m_TagString: PlayerHitbox
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -353,6 +353,7 @@ GameObject:
   - component: {fileID: 3152751008839611532}
   - component: {fileID: 3152751008839611533}
   - component: {fileID: 942076821}
+  - component: {fileID: 942076822}
   m_Layer: 9
   m_Name: OrcWarrior
   m_TagString: Enemy
@@ -489,6 +490,7 @@ MonoBehaviour:
   targets: []
   obstacles: []
   currentTarget: {fileID: 0}
+  strafeDistance: 4
 --- !u!114 &3152751008839611533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,6 +516,7 @@ MonoBehaviour:
   speed: 2
   handTransform: {fileID: 142618929}
   currentEnemyState: 0
+  attack: {fileID: 942076822}
 --- !u!114 &942076821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,8 +529,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e700c3f29afdd54f89a503739d3d467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyHitboxTag: PlayerHitbox
   hitMaterial: {fileID: 2100000, guid: b0af7862c332167489eb855a3573289d, type: 2}
   invincibilityTimeSeconds: 0.1
+--- !u!114 &942076822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3152751008839611526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c47f1ce7f1fbb4e9ad70f6ba5cd333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedInAttackTime: 1.5
+  swordSwipePrefab: {fileID: 2776848348362735944, guid: b1494ba54829a5d479cb48c44d9b7463, type: 3}
+  handTransform: {fileID: 142618929}
+  distanceInFrontToSpawnSwipe: 1.543884
+  distanceForward: 4
 --- !u!1 &3152751008881754519
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,7 +916,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDetector: {fileID: 3152751009095433548}
-  strafeDistance: 4
   strafeDirection: 1
   targetRechedThreshold: 0.5
   showGizmo: 1

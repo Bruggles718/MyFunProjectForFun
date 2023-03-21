@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemyHit : MonoBehaviour
 {
+    [SerializeField] private string enemyHitboxTag;
     [SerializeField] private Material hitMaterial;
-    [SerializeField] private float invincibilityTimeSeconds = 0.25f;
+    [SerializeField] private float invincibilityTimeSeconds = 0.1f;
     private Material originalMaterial;
     private SpriteRenderer spriteRenderer;
     private float lockedTill;
@@ -19,7 +20,7 @@ public class EnemyHit : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (Time.time < lockedTill) return;
-        if (collision.CompareTag("PlayerHitbox"))
+        if (collision.CompareTag(enemyHitboxTag))
         {
             this.StartCoroutine(this.HitCo());
         }
