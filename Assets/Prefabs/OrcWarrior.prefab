@@ -511,7 +511,6 @@ MonoBehaviour:
   - {fileID: 3152751009095433548}
   - {fileID: 3152751009445076336}
   aiData: {fileID: 3152751008839611532}
-  attackDistance: 0
   movementDirectionSolver: {fileID: 3152751010241003400}
   speed: 2
   handTransform: {fileID: 142618929}
@@ -544,6 +543,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c47f1ce7f1fbb4e9ad70f6ba5cd333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minWaitToAttackTime: 1
+  maxWaitToAttackTime: 4
   lockedInAttackTime: 1.5
   swordSwipePrefab: {fileID: 2776848348362735944, guid: b1494ba54829a5d479cb48c44d9b7463, type: 3}
   handTransform: {fileID: 142618929}

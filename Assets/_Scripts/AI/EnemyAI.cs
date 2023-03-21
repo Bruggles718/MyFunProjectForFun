@@ -29,8 +29,8 @@ public class EnemyAI : MonoBehaviour
     /*[SerializeField]
     private float detectionDelay = 0.01f, aiUpdateDelay = 0.01f, attackDelay = 1f;*/
 
-    [SerializeField]
-    private float attackDistance = 0.5f;
+    /*[SerializeField]
+    private float attackDistance = 0.5f;*/
 
     //Inputs sent from the Enemy AI to the Enemy controller
     /*public UnityEvent OnAttackPressed;
@@ -64,8 +64,6 @@ public class EnemyAI : MonoBehaviour
     private float startAttackIn;
 
     private float lockedInAttackTill;
-
-    private bool readying = false;
 
     private void Start()
     {
@@ -140,7 +138,6 @@ public class EnemyAI : MonoBehaviour
     {
         if (Time.time < lockedInAttackTill) return;
         this.currentEnemyState = EnemyState.Idle;
-        this.readying = false;
     }
 
     private void UpdateChase()
@@ -176,7 +173,7 @@ public class EnemyAI : MonoBehaviour
 
             if (startAttackIn <= 0)
             {
-                this.startAttackIn = Random.Range(3f, 6f);
+                this.startAttackIn = Random.Range(this.attack.MinWaitToAttackTime(), this.attack.MaxWaitToAttackTime());
                 this.StartCoroutine(this.AttackCo());
             }
 
