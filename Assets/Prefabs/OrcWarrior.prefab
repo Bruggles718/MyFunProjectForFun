@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 142618929}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Hand
-  m_TagString: PlayerWeapon
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 443229095}
   - component: {fileID: 443229097}
   - component: {fileID: 443229096}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Sword
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1815830741}
   - component: {fileID: 1815830742}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: HitBox
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.003820926, y: -0.12853956}
+  m_Offset: {x: -0.011737585, y: -0.12853956}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -336,7 +336,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8759952, y: 1.0138426}
+  m_Size: {x: 0.8854953, y: 1.0138426}
   m_EdgeRadius: 0
 --- !u!1 &3152751008839611526
 GameObject:
@@ -531,7 +531,8 @@ MonoBehaviour:
   hitboxTag: PlayerHitbox
   hitMaterial: {fileID: 2100000, guid: b0af7862c332167489eb855a3573289d, type: 2}
   invincibilityTimeSeconds: 0.1
-  intensity: 4
+  screenShakeTime: 0.25
+  screenShakeIntensity: 4
 --- !u!114 &942076822
 MonoBehaviour:
   m_ObjectHideFlags: 0

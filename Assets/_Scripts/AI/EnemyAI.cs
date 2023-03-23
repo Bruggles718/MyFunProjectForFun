@@ -156,7 +156,7 @@ public class EnemyAI : MonoBehaviour
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
             this.handTransform.right = -(aiData.currentTarget.position - transform.position).normalized;
             moveVector = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData) * speed;
-            if (Mathf.Abs(aiData.strafeDistance - distance) < 1)
+            if (distance < aiData.strafeDistance + 1)
             {
                 //Attack logic
                 //movementInput = Vector2.zero;

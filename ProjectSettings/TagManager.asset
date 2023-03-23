@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - PlayerHitbox
   - EnemyHitbox
+  - PlayerHurtbox
   layers:
   - Default
   - TransparentFX
